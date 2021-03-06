@@ -6,3 +6,7 @@
 <div>
   <%= @event.body %>
 </div>
+
+<div>
+  <%= @event.date %>
+</div>
