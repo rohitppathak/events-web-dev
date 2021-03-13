@@ -1,5 +1,5 @@
 
-Web Dev Spring 2021 HW07 Status
+Web Dev Spring 2021 HW08 Status
 
 Answer the following questions:
 
@@ -17,16 +17,13 @@ events.rohitpathak.us
 
 
 4. Is your app functionality complete? If not, what's missing?
-Complete for part 1
+Everything is complete except generating a link for the invite to send to invitees. The invitees can still get to the event and do all the functionality for replying, but I didn't get time to generate the actual link to send to invitees.
 
 
 5. Is your app properly deployed? If not, what went wrong?
-Yes it is properly deployed
+Yes, it is properly deployed.
 
 
-6. If you would like the deployment for an old homework to be reconsidered, what
-are the links to your Inkfish submission and deployed site?
-N/A
 
 
 And here's a list of tasks for grading comments. Just leave this here:
