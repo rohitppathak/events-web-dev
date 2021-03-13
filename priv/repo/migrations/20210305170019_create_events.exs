@@ -6,6 +6,7 @@ defmodule EventsApp.Repo.Migrations.CreateEvents do
       add :title, :text, null: false
       add :body, :text, null: false
       add :date, :date, null: false
+      add :user_id, references(:users), null: false
 
       timestamps()
     end

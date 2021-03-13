@@ -6,6 +6,8 @@ defmodule EventsApp.Events.Event do
     field :body, :string
     field :title, :string
     field :date, :date
+    belongs_to :user, EventsApp.Users.User
+    has_many :invites, EventsApp.Invites.Invite
 
     timestamps()
   end
@@ -13,7 +15,7 @@ defmodule EventsApp.Events.Event do
   @doc false
   def changeset(event, attrs) do
     event
-    |> cast(attrs, [:title, :body, :date])
-    |> validate_required([:title, :body, :date])
+    |> cast(attrs, [:title, :body, :date, :user_id])
+    |> validate_required([:title, :body, :date, :user_id])
   end
 end

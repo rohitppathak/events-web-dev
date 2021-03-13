@@ -1,0 +1,5 @@
+<h1>Edit Invite</h1>
+
+<%= render "form.html", Map.put(assigns, :action, Routes.invite_path(@conn, :update, @invite)) %>
+
+<span><%= link "Back", to: Routes.invite_path(@conn, :index) %></span>

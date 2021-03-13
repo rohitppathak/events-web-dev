@@ -19,7 +19,17 @@ defmodule EventsAppWeb.Router do
 
     get "/", PageController, :index
     resources "/events", EventController
-    resources "/users", UserController
+    resources "/invites", InviteController
+    post "/invites/:id", InviteController, :update
+    get "/users/photo/:id", UserController, :photo
+    get "/users", UserController, :index
+    get "/users/:id/edit", UserController, :edit
+    get "/users/new", UserController, :new
+    get "/users/:id", UserController, :show
+    post "/users", UserController, :create_or_update
+    patch "/users/:id", UserController, :update
+    put "/users/:id", UserController, :update
+    delete "/users/:id", UserController, :delete
     resources "/sessions", SessionController,
      only: [:create, :delete], singleton: true
   end

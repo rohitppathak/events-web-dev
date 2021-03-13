@@ -1,12 +1,61 @@
-<span><%= link "Edit", to: Routes.event_path(@conn, :edit, @event) %></span>
+<%= if current_user_id?(@conn, @event.user_id) do %>
+    <span><%= link "Edit", to: Routes.event_path(@conn, :edit, @event) %></span>
+    <span><%= link "Delete", to: Routes.event_path(@conn, :delete, @event), method: :delete, data: [confirm: "Are you sure?"] %></span>
+<% end %>
 <span><%= link "Back", to: Routes.event_path(@conn, :index) %></span>
 
 <h1><%= @event.title %></h1>
+<div class="row">
+<div class="col">
+    <div class="row">
+      <%= @event.body %>
+    </div>
 
-<div>
-  <%= @event.body %>
+    <div class="row">
+      <%= @event.date %>
+    </div>
+
+    <br/>
+    <br/>
+    <br/>
+
+    <%= if @invite do %>
+    <div class="row">
+      Update your status:
+    </div>
+    <div class="row">
+      <%= render EventsAppWeb.InviteView, "respond.html", Map.put(assigns, :action, Routes.invite_path(@conn, :update, @invite)) %>
+    </div>
+    <% end %>
 </div>
 
-<div>
-  <%= @event.date %>
+<div class="col">
+<h2>Invites</h2>
+<h6>Yes: <%= @invite_count[3]%>, Maybe: <%= @invite_count[2]%>, No: <%= @invite_count[1]%>, Awaiting: <%= @invite_count[0]%></h6>
+
+<%= for inv <- @event.invites do %>
+  <div class="card">
+    <div class="card-body">
+      <p>
+      <img style="max-height:50px;max-width:50px" src="<%= Routes.user_path(@conn, :photo, inv.user) %>" alt="">
+      <%= if inv.user.name == "", do: inv.user.email, else: inv.user.name %>:
+      <%= case inv.status do%>
+        <%= 0 -> %>No response
+        <%= 1 -> %>Not attending
+        <%= 2 -> %>May be attending
+        <%= 3 -> %>Will be attending
+      <% end%>
+      </p>
+      <p>
+        <%= inv.comment %>
+        <%= if inv.comment != nil and (current_user_id?(@conn, @event.user_id) or current_user_id?(@conn, inv.user_id)) do %>
+        <span><%= link "Delete Comment", to: Routes.invite_path(@conn, :delete, inv), method: :delete, data: [confirm: "Are you sure?"] %></span>
+        <% end %>
+      </p>
+    </div>
+  </div>
+<% end %>
+<div>Send an invite:</div>
+<%= render EventsAppWeb.InviteView, "form.html", Map.put(assigns, :action, Routes.invite_path(@conn, :create)) %>
+</div>
 </div>

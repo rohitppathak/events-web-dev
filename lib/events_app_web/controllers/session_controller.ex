@@ -2,7 +2,7 @@ defmodule EventsAppWeb.SessionController do
   use EventsAppWeb, :controller
 
   def create(conn, %{"email" => email}) do
-    user = EventsApp.Users.get_user_by_email(email)
+    user = EventsApp.Users.get_registered_user(email)
     if user do
       conn
       |> put_session(:user_id, user.id)

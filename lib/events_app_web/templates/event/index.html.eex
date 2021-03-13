@@ -4,6 +4,7 @@
   <thead>
     <tr>
       <th>Title</th>
+      <th>Created By</th>
 
       <th></th>
     </tr>
@@ -12,11 +13,14 @@
 <%= for event <- @events do %>
     <tr>
       <td><%= event.title %></td>
+      <td>
+            <%= event.user.name %>
+            <% src = Routes.user_path(@conn, :photo, event.user) %>
+            <img style="height:100px;width:100px" class="card-img-top" src="<%= src %>" alt="">
+      </td>
 
       <td>
         <span><%= link "View", to: Routes.event_path(@conn, :show, event) %></span>
-        <span><%= link "Edit", to: Routes.event_path(@conn, :edit, event) %></span>
-        <span><%= link "Delete", to: Routes.event_path(@conn, :delete, event), method: :delete, data: [confirm: "Are you sure?"] %></span>
       </td>
     </tr>
 <% end %>

@@ -47,6 +47,16 @@ defmodule EventsApp.Users do
     Repo.get_by(User, email: email)
   end
 
+  def get_registered_user(email) do
+    query = from e in User, where: e.email == ^email and e.name != ""
+    Repo.one(query)
+  end
+
+  def get_unregistered_user(email) do
+    query = from e in User, where: e.email == ^email and e.name == ""
+    Repo.one(query)
+  end
+
   @doc """
   Creates a user.
 
@@ -59,9 +69,9 @@ defmodule EventsApp.Users do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_user(attrs \\ %{}) do
+  def create_user(attrs \\ %{}, invite \\ false) do
     %User{}
-    |> User.changeset(attrs)
+    |> User.changeset(attrs, invite)
     |> Repo.insert()
   end
 

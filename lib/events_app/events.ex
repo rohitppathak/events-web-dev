@@ -19,6 +19,17 @@ defmodule EventsApp.Events do
   """
   def list_events do
     Repo.all(Event)
+    |> Repo.preload(:user)
+  end
+
+  def list_filtered_events(user_id) do
+    query = from e in Event, where: e.user_id == ^user_id
+    owns = Repo.all(query)
+    |> Repo.preload(:user)
+    query = from e in Event, join: c in assoc(e, :invites), where: c.user_id == ^user_id
+    invited = Repo.all(query)
+    |> Repo.preload(:user)
+    owns ++ invited
   end
 
   @doc """
@@ -100,5 +111,9 @@ defmodule EventsApp.Events do
   """
   def change_event(%Event{} = event, attrs \\ %{}) do
     Event.changeset(event, attrs)
+  end
+
+  def load_invites(%Event{} = event) do
+    Repo.preload(event, [invites: :user])
   end
 end

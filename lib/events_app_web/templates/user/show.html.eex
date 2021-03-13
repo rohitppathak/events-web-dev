@@ -1,8 +1,14 @@
-<span><%= link "Edit", to: Routes.user_path(@conn, :edit, @user) %></span>
+<%= if current_user_id?(@conn, @user.id) do %>
+    <span><%= link "Edit", to: Routes.user_path(@conn, :edit, @user) %></span>
+<% end %>
 <span><%= link "Back", to: Routes.user_path(@conn, :index) %></span>
 
 <h1><%= @user.name %></h1>
 
 <div>
   <%= @user.email %>
+</div>
+
+<div>
+  <img style="max-height:500px;max-width:500px" src="<%= Routes.user_path(@conn, :photo, @user) %>" alt="">
 </div>

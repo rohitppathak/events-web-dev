@@ -1,0 +1,13 @@
+<h1>Show Invite</h1>
+
+<ul>
+
+  <li>
+    <strong>Status:</strong>
+    <%= @invite.status %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.invite_path(@conn, :edit, @invite) %></span>
+<span><%= link "Back", to: Routes.invite_path(@conn, :index) %></span>
